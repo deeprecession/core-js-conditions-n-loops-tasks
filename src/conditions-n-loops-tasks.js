@@ -585,6 +585,67 @@ function shuffleChar(str, iterationst) {
   return res;
 }
 
+function reverse(arrt, startt, endt) {
+  const arr = arrt;
+  let start = startt;
+  let end = endt;
+
+  while (start < end) {
+    const temp = arr[start];
+    arr[start] = arr[end];
+    arr[end] = temp;
+    start += 1;
+    end -= 1;
+  }
+
+  return arr;
+}
+
+function nextPermutation(number) {
+  let digits = [];
+  let n = number;
+
+  while (n > 0) {
+    digits.push(n % 10);
+    n = Math.floor(n / 10);
+  }
+
+  digits = digits.reverse();
+
+  const len = digits.length;
+  if (len === 1) {
+    return number;
+  }
+
+  let i = len - 1;
+  while (i > 0 && digits[i - 1] >= digits[i]) {
+    i -= 1;
+  }
+
+  if (i === 0) {
+    return number;
+  }
+
+  let j = len - 1;
+  while (digits[j] <= digits[i - 1]) {
+    j -= 1;
+  }
+
+  const temp = digits[i - 1];
+  digits[i - 1] = digits[j];
+  digits[j] = temp;
+
+  digits = reverse(digits, i, len - 1);
+
+  let result = 0;
+  for (let k = 0; k < digits.length; k += 1) {
+    const digit = digits[k];
+    result = result * 10 + digit;
+  }
+
+  return result;
+}
+
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
  * If there is no such number, it returns the original number.
@@ -602,50 +663,8 @@ function shuffleChar(str, iterationst) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
-
-  // const digits = [];
-  // let n = number;
-  //
-  // while (n > 0) {
-  //   digits.push(n % 10);
-  //   n = Math.floor(n / 10);
-  // }
-  //
-  // digits.reverse();
-  //
-  // const len = digits.length;
-  //
-  // let i = len - 2;
-  // while (i >= 0 && digits[i] >= digits[i + 1]) {
-  //   i -= 1;
-  // }
-  //
-  // if (i < 0) {
-  //   return number;
-  // }
-  //
-  // let j = len - 1;
-  // while (digits[j] <= digits[i]) {
-  //   j -= 1;
-  // }
-  //
-  // const temp = digits[i];
-  // digits[i] = digits[j];
-  // digits[j] = temp;
-  //
-  // const rightPart = digits.slice(i + 1).sort((a, b) => a - b);
-  //
-  // const resultDigits = digits.slice(0, i + 1).concat(rightPart);
-  //
-  // let result = 0;
-  // for (let t = 0; t < resultDigits.length; t += 1) {
-  //   const digit = resultDigits[t];
-  //   result = result * 10 + digit;
-  // }
-  //
-  // return result;
+function getNearestBigger(number) {
+  return nextPermutation(number);
 }
 
 module.exports = {
