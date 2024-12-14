@@ -430,7 +430,9 @@ function getSpiralMatrix(size) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(matrix) {
+function rotateMatrix(matrixt) {
+  const matrix = matrixt;
+
   const n = matrix.length;
 
   for (let i = 0; i < n; i += 1) {
@@ -456,7 +458,9 @@ function rotateMatrix(matrix) {
   return matrix;
 }
 
-function merge(arr, left, mid, right) {
+function merge(arrt, left, mid, right) {
+  const arr = arrt;
+
   const n1 = mid - left + 1;
   const n2 = right - mid;
 
