@@ -542,31 +542,47 @@ function sortByAsc(arr) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterationst) {
+  const { length } = str;
 
-  // const { length } = str;
-  //
-  // if (iterations === 0) return str;
-  //
-  // const result = new Array(length);
-  //
-  // for (let i = 0; i < length; i += 1) {
-  //   let currentPosition = i;
-  //
-  //   for (let cycle = 0; cycle < iterations; cycle += 1) {
-  //     if (currentPosition % 2 === 0) {
-  //       currentPosition /= 2;
-  //     } else {
-  //       currentPosition =
-  //         Math.floor(length / 2) + Math.floor(currentPosition / 2);
-  //     }
-  //   }
-  //
-  //   result[currentPosition] = str[i];
-  // }
-  //
-  // return result.join('');
+  if (iterationst === 0) return str;
+
+  let count = 0;
+  let one = 1;
+  do {
+    if (one % 2 === 0) {
+      one /= 2;
+    } else {
+      one = Math.floor(length / 2) + Math.floor(one / 2);
+    }
+
+    count += 1;
+  } while (one !== 1);
+
+  const iterations = iterationst % count;
+
+  const result = new Array(length);
+
+  for (let i = 0; i < length; i += 1) {
+    let currentPosition = i;
+
+    for (let cycle = 0; cycle < iterations; cycle += 1) {
+      if (currentPosition % 2 === 0) {
+        currentPosition /= 2;
+      } else {
+        currentPosition =
+          Math.floor(length / 2) + Math.floor(currentPosition / 2);
+      }
+    }
+
+    result[currentPosition] = str[i];
+  }
+
+  let res = '';
+  for (let i = 0; i < length; i += 1) {
+    res += result[i];
+  }
+  return res;
 }
 
 /**
